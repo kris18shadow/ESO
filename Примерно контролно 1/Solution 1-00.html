@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				width: 50%;
+				margin: auto;
+			}
+			
+			h1 { color: Red; }
+			
+			img {
+				width: 100%;
+			}
+		</style>
+		
+		<script>
+			function recolor()
+			{
+				var p = document.getElementsByTagName('p');
+				for (var i in p)
+					p[i].style.color = 'Red';
+			}
+		</script>
+	</head>
+
+	<body>
+		<h1>Lorem ipsum dolor</h1>
+
+		<p>Vivamus volutpat ut purus vitae posuere. Vivamus feugiat auctor finibus. Nunc convallis arcu porta elit porttitor interdum ac nec augue. Suspendisse aliquam et massa ut sollicitudin.</p>
+
+		<p>Donec porttitor augue nunc, id aliquet dolor dapibus ac. Proin blandit odio molestie justo pharetra, nec dapibus eros ullamcorper. Sed in mi ex. Suspendisse aliquet at mauris in auctor.</p>
+
+		<img src="image3.jpg">
+		
+		<button onclick="recolor()">Aliquam</button>
+	</body>
+</html>

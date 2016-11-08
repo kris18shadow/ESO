@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Примерно контролно 1">
+	<meta name="keywords" content="контролно, примерно">
+	<meta name="author" content="Кристиян Митков">
+	<title>Главна страница</title>
+</head>
+
+<body style="text-align: center; margin-left: 25%; margin-right: 25%;">
+	<h1 style="color: red">Аз съм заглавие с червен цвят</h1>
+
+	<p>Освен заглавието трябва да има и два параграфа. Аз съм параграф 1.
+		 Освен заглавието трябва да има и два параграфа. Аз съм параграф 1.
+	 	 Освен заглавието трябва да има и два параграфа. Аз съм параграф 1.
+	 	 Освен заглавието трябва да има и два параграфа. Аз съм параграф 1.</p>
+
+	<p>А аз съм параграф 2.А аз съм параграф 2.А аз съм параграф 2.А аз съм параграф 2.
+		 А аз съм параграф 2.А аз съм параграф 2.А аз съм параграф 2.А аз съм параграф 2.
+	 	 А аз съм параграф 2.А аз съм параграф 2.А аз съм параграф 2.А аз съм параграф 2.</p>
+
+  <p>
+		<button onclick="changeColor()">
+			Натисни ме!
+		</button>
+  </p>
+
+	<img src="https://s-media-cache-ak0.pinimg.com/564x/fb/a7/23/fba72383b6b280387fa105e804ca0630.jpg" style="width:100%"> <p><big>Аз съм коте-моте.<big></p> </img>
+
+	<script>
+	function changeColor() {
+		var p = document.getElementsByTagName('p');
+		if(p[0].style.color == "black")	{
+			for (var i = 0; i < p.length; i++) {
+				p[i].style.color = "red";
+			}
+		}
+		else {
+				for (var i = 0; i < p.length; i++) {
+					p[i].style.color = "black";
+				}
+		}
+	}
+	</script>
+</body>
