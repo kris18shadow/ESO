@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Решение</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main()
+		{
+			new Suica();
+			a = point([0,0,5]);
+			a.pointSize = 20;
+			b = square([0,0,0],5);
+				
+			 //a.focus = [0,0,1];
+			 
+			 b.focus = [1,0,0];
+			 demo();
+			 oxyz();
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>

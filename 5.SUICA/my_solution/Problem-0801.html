@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+ <head>
+	<meta charset="utf-8">
+	<title>Задача 0801: Включване на библиотеката СУИКА</title>
+	
+	<script src="suica.min.js"></script> <!--включване на минимизиран вариант на библиотеката СУИКА-->
+	
+	<script>
+	function main()
+	{
+		new Suica();
+		for (var i=0; i<50; i++)
+		{
+			console.log(i);
+			var alpha = radians(180*i/50);
+				
+			var x = Math.cos(alpha);
+			var z = Math.sin(alpha);
+			console.log(i);
+			
+			line([0,0,0],[x,0,z]);
+		}
+		demo();
+
+	}
+	</script>
+	
+	<style>
+	</style>
+
+	
+ </head>
+ 
+ <body onload="main()"> <!--изпълняване на функцията main при зареждане на страницата-->
+ 	<canvas width = "500" height = "500">
+		Canvas is not supported!
+	</canvas>
+ </body>
+</html>

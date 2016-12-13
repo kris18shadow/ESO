@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Формули</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		sameAs(a) //копиране на обект
+		vectorPoints(a,b) //от 2 точки вектор
+		scalarProduct(), vectorProduct() //скаларно и векторно произведение
+		background([0.9,0.9,0.9]); //смяна на цвета на 
+		
+		function vLen(a) //дължина на вектор
+		{
+			return Math.sqrt(a[0]*a[0]+a[1]*a[1]+a[2]*a[2]);
+		}
+		
+		function main()
+		{
+			//От 2 точки вектор:
+			var A = [3, -5, 1];
+			var B = [-2, 4, 7];
+			var AB = vectorPoints(A,B);
+			
+			//Скаларно произведение на вектори:
+			scalarProduct(AB,AB)
+			
+			//Създаване на 4 точки във върховетe на квадрат със страна n единици:
+			a = point([0, 0, 0]);
+			a = point([n,0,0]);
+			a = point([0,n,0]);
+			a = point([n,n,0]);
+			
+			//Промяна на свойства на точки:
+			a.pointSize = 10;
+			a.color = [0, 0, 1];
+			
+			//Създаване на n случайни точки по окръжност с радиус r
+			for (var i=0; i<n; i++)
+			{
+				var alpha = random(0,radians(360));
+				
+				var x = r*Math.cos(alpha);
+				var y = r*Math.sin(alpha);
+				
+				point([x,y,0]);
+			}
+			
+			//Създаване на n случайни точки РАВНОМЕРНО разпределени по окръжност с радиус r и център точка с координати х, у, z
+			var alpha = random(0,radians(360));
+			
+			for (var i=0; i<n; i++)
+			{
+				var xp = x + r*Math.cos(alpha);
+				var yp = y + r*Math.sin(alpha);
+				var zp = z;
+				
+				point([xp,yp,zp]);
+				
+				alpha = alpha + 360/n;
+			}
+			
+			//Създаване на n случайни точки по СФЕРА с радиус r и център точка с координати х, у, z
+			for (var i=0; i<n; i++)
+			{
+				var alpha = radians(random(0,360));
+				var beta = radians(random(-90,90));
+				
+				var xp = x + r*Math.cos(alpha)*Math.cos(beta);
+				var yp = y + r*Math.sin(alpha)*Math.cos(beta);
+				var zp = z + r*Math.sin(beta);
+				
+				var a = point([xp,yp,zp]);
+				a.pointSize = 5;
+				a.color = [Math.random(), Math.random(), Math.random()];
+			}
+			
+			//Създаване на n случайни точки лежащи между две точки
+			for (var i=0; i<n; i++)
+			{
+				var k = random(0,1);
+
+				var x = A.center[0]*(1-k)+k*B.center[0];
+				var y = A.center[1]*(1-k)+k*B.center[1];
+				var z = A.center[2]*(1-k)+k*B.center[2];
+
+				point([x,y,z]);
+			}
+			
+			//Създаване на n случайни хорди в окръжност с радиус r и център (x,y,z)
+			for (var i=0; i<n; i++)
+			{
+				var a = random(0,radians(360));
+				var b = random(0,radians(360));
+				
+				var xp = x;
+				var yp = y + r*Math.sin(a);
+				var zp = z + r*Math.cos(a);
+				
+				var xq = x;
+				var yq = y + r*Math.sin(b);
+				var zq = z + r*Math.cos(b);
+				
+				segment([xp,yp,zp], [xq,yq,zq]);				
+			}
+			
+			//Създаване на n случайни хорди с ЕДНАКВА ДЪЛЖИНА в окръжност с радиус r и център (x,y,z)
+			for (var i=0; i<n; i++)
+			{
+				var a = random(0,radians(360));
+				var b = a + 360/n;
+				
+				var xp = x;
+				var yp = y + r*Math.sin(a);
+				var zp = z + r*Math.cos(a);
+				
+				var xq = x;
+				var yq = y + r*Math.sin(b);
+				var zq = z + r*Math.cos(b);
+				
+				segment([xp,yp,zp], [xq,yq,zq]);				
+			}
+			
+			//Създаване на n отсечки с еднаква дължина, разположени по цилиндър с радиус на осн R и център случайна точка
+			var A = point([random(-20,20),random(-20,20),random(-20,20)]);
+			var B = point([A.center[0],A.center[1],random(-20,20)]);
+			for (var i=0; i<n; i++)
+			{
+				var a = random(0,radians(360)); // = radians(360*i/n); за равномерно разпределение
+							
+				var xp = A.center[0] + r*Math.cos(a);
+				var yp = A.center[1] + r*Math.sin(a);
+				var zp = A.center[2];
+				
+				var xq = B.center[0] + r*Math.cos(a);
+				var yq = B.center[1] + r*Math.sin(a);
+				var zq = B.center[2];
+				
+				segment([xp,yp,zp], [xq,yq,zq]);
+				
+			}
+			
+			//Визуализация само на върхове или само на линии на квадрат
+			a = square([x,y,z],a);
+			a.mode = Suica.POINT;
+			a.mode = Suica.LINE;
+			a.mode = Suica.SOLID;
+			
+			//Създаване на n един в друг квадрати, първия с координати x,y,z и размер а
+			for (var i=1; i<=n; i++)
+			{
+				s = square([x,y,z],a);
+				s.mode = Suica.LINE;
+				s.focus = [1,0,0];
+				a = a*0.8;
+			}
+			
+			//Създаване на вложени квадрати, като всеки следващ квадрат съвпада със средите на предходния
+			s = square([x,y,z],a);
+			s.mode = Suica.LINE;
+			s.focus = [1,0,0];
+						
+			for (var i=1; i<=n; i++)
+			{
+				a = a*Math.sqrt(2)/2;
+				s = square([x,y,z],a);
+				s.mode = Suica.LINE;
+				s.spin = radians(45*i);
+				s.focus = [1,0,0];			
+			}
+			
+			//Четири еднакви правоъгълника ограждат квадрат със страна а, като за правоъгилниците
+			//предварително са зададени център на един от тях точка и една от страните с дължина а
+			b = rectangle([x,y,z],[a,2*a]);
+			b.focus = [1,0,0];			
+			b = rectangle([x,y-a/2,z+3/2*a],[a,2*a]);
+			b.spin = radians(90);
+			b.color = [0,1,1];
+			b.focus = [1,0,0];						
+			b = rectangle([x,y+a,z+2*a],[a,2*a]);
+			b.focus = [1,0,0];			
+			b = rectangle([x,y+3/2*a,z+a/2],[a,2*a]);
+			b.spin = radians(90);
+			b.color = [0,1,1];b.focus = [1,0,0];
+			
+			//Пирамида от кубове, чиято основа се състои от n на брой кубове, страна а
+			//и координати на център един от кубовете x,y,z
+			iniy = y;
+			k = n;			
+			for (var j=1; j<=n; j++)
+			{				
+				for (var i=1; i<=k; i++)
+				{
+					c = cube([x,y,z],a);
+					c.color = [random(0,1),random(0,1),random(0,1)];
+					y = y + a;
+				}
+				k = k - 1;
+				y = iniy + a/2*j;
+				z = z + a;
+			}
+			
+			//Шахматна дъска от кубове:
+			iniy = y;
+			inix = x;			
+			for (var j=1; j<=4; j++)
+			{				
+				for (var i=1; i<=4; i++)
+				{
+					c = cube([x,y,z],a);
+					y = y + a;
+					c.color = [1,1,1];
+					c = cube([x,y,z],a);
+					y = y + a;
+					c.color = [0,0,0];
+				}				
+				y = iniy;
+				x = x + a;				
+				for (var i=1; i<=4; i++)
+				{
+					c = cube([x,y,z],a);
+					y = y + a;
+					c.color = [0,0,0];
+					c = cube([x,y,z],a);
+					y = y + a;
+					c.color = [1,1,1];
+				}				
+				y = iniy;
+				x = x + a;
+			}
+			
+			//Стена от тухли с паралепипети размери a,b,c, координати на център на 1 от тях xyz
+			iniy = y;				
+			for (var j=1; j<=m/2; j++)
+			{				
+				for (var i=1; i<=n; i++)
+				{
+					p = cuboid([x,y,z],[a,b,c]);
+					p.color = [random(0,1),0,0];
+					y = y + b;
+				}				
+				y = y - b/4;
+				p = cuboid([x,y,z],[a,b/2,c]);
+				p.color = [random(0,1),0,0];				
+				y = iniy - b/4;
+				z = z + c;
+				p = cuboid([x,y,z],[a,b/2,c]);
+				p.color = [random(0,1),0,0];				
+				y = iniy + b/2;				
+				for (var i=1; i<=n; i++)
+				{
+					p = cuboid([x,y,z],[a,b,c]);
+					p.color = [random(0,1),0,0];
+					y = y + b;
+				}				
+				y = iniy;
+				z = z + c;
+			}
+			
+			//Създаване на m равнострани вложени триъгълника, 
+			//върховете на всеки следващ е в средата на страните на текущия
+			for (var i=1; i<=m; i++)
+			{
+				a = polygon([x,y,z],r,3);
+				a.mode = Suica.LINE;
+				a.focus = [1,0,0];
+				a.spin = radians(60*i);
+				r = r * Math.sin(radians(30));
+			}
+			
+			//Огърлица от n на брой допиращи се една до друга сфери с радиус r
+			a = radians(random(0,360));			
+			for (var i=1; i<=n; i++)
+			{
+				z = r/Math.sin(radians(360/(2*n))) * Math.cos(a);
+				y = r/Math.sin(radians(360/(2*n))) * Math.sin(a);
+				x = 0;
+		
+				c = sphere([x,y,z],r);
+				a = a + radians(360/n);
+			}
+			
+			//Начертайте редица от n призми като започнете от триъгълна, 
+			//а за всяка следваща увеличавате броя на околните стени с 1 всички да имат радиус r и височина h
+			for (var i=3; i<n+3; i++)
+			{					
+				c = prism([x,y,z],r,h,i);
+				c.color = [random(0,1),random(0,1),random(0,1)];								
+				y = y + 2*r + 5
+			}
+			
+			//Функция за стилизиране:
+			function perl(object)
+			{	
+				var k = random(0.6,0.8)
+				object.color = [k+0.3,k+0.3,k];
+				return object;
+			}
+			
+			//Сечащи равнини:
+			s = sphere([x,y,z],r).custom({
+				color: [random(0,1),random(0,1),random(0,1)],
+				clipPlanes: [[0,1,0,y/2*r],[1,0,0,y/2*r]]
+			});
+		}
+	</script>	
+</head>
+
+<body onload="main()">
+
+</body>

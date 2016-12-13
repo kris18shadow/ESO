@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Пример 1113</title>
+
+	<script src="suica.min.js"></script>
+
+	<script>
+		function main(r1,r2,r3,n)
+		{
+			new Suica();
+			//oxyz();
+			demo(25, 0.5, 5, 0);
+			
+			a = radians(random(0,360));
+			
+			for (var i=1; i<=n; i++)
+			{  
+				x = random(-20,20);
+				y = random(-40,40);
+				z = random(-5,5);
+		
+				c = spheroid([x,y,z],[r1,r2,r3]);
+								
+				c1 = parseInt(random(0,2));
+				c2 = parseInt(random(0,2));
+				c3 = parseInt(random(0,2));
+				
+				if (c1 == 1) {c3 = 0;} else {if (c3 == 0){c2 = 1;}}
+				c.color = [c1,c2,c3]; 
+			}
+		}
+	</script>	
+</head>
+
+<body onload="main(5,5,2,25)">
+	<noscript>
+		Искаме JavaScript, но няма!
+	</noscript>
+	
+	<canvas width="740" height="350" style="border: solid 1px Black;">
+		Искаме canvas, но няма!
+	</canvas>
+</body>
+</html>
